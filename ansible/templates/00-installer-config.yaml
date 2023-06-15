@@ -1,0 +1,18 @@
+network:
+  ethernets:
+    enp3s0f0:
+      dhcp4: true
+      optional: true
+  version: 2
+  wifis:
+      wlp2s0:
+          optional: true
+          access-points:
+              "bodhisattva":
+                  password: "3bmchtRfast"
+          dhcp4: true
+          dhcp4-overrides:
+              use-dns: false
+          nameservers: 
+              search: [rodgers.home]
+              addresses: [10.0.0.83, 8.8.8.8, 8.8.4.4]

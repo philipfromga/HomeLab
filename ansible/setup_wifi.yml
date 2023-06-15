@@ -1,0 +1,34 @@
+---
+- hosts: all
+  gather_facts: yes
+  become: yes
+
+  tasks:
+    - name: Install Broadcom Wireless and wpa-supplicant.
+      ansible.builtin.apt:
+        pkg:
+        - bcmwl-kernel-source
+        - wpasupplicant
+
+    - name: Start wpa-supplicant
+      ansible.builtin.service:
+        name: wpa_supplicant
+        state: started
+    
+    - name: Install netplan yaml.
+      template: src=00-installer-config.yaml dest=/etc/netplan/00-installer-config.yaml
+
+    - name: Apply netplan
+      command: sudo netplan apply
+      ignore_errors: true
+
+    - name: Remove resolver
+      file:
+        path: "/etc/resolve.conf"
+        state: absent
+
+    - name: Add new resolver
+      file:
+        src: /run/systemd/resolve/resolv.conf
+        dest: /etc/resolv.conf
+        state: link
