@@ -8,3 +8,6 @@ Current Hardware
 
 1 Macbook Pro 14,10
   OS: MacOS 13.4 Ventura
+
+Keys setup to all nodes with:
+    ssh-copy-id user@node
